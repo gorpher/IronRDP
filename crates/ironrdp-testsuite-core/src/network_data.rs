@@ -1,3 +1,4 @@
+use ironrdp_connector::ClientConnectorState::ChannelConnection;
 use ironrdp_pdu::gcc::*;
 
 pub const CLIENT_NETWORK_DATA_WITH_CHANNELS_BUFFER: [u8; 40] = [
@@ -45,6 +46,10 @@ lazy_static! {
             ChannelDef {
                 name: ChannelName::from_utf8("rdpsnd").unwrap(),
                 options: ChannelOptions::INITIALIZED | ChannelOptions::ENCRYPT_RDP,
+            },
+             ChannelDef {
+                name: ChannelName::from_utf8("rail").unwrap(),
+                options: ChannelOptions::INITIALIZED | ChannelOptions::ENCRYPT_RDP| ChannelOptions::SHOW_PROTOCOL,
             },
         ],
     };

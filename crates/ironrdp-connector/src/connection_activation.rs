@@ -278,6 +278,7 @@ fn create_client_confirm_active(
         BitmapDrawingFlags::ALLOW_SKIP_ALPHA
     };
 
+    pub const SERVER_RAIL_CAPABILITY_SET: [u8; 4] = [255, 0x0, 0x0, 0x0];
     server_capability_sets.extend_from_slice(&[
         CapabilitySet::General(General {
             major_platform_type: config.platform,
@@ -295,7 +296,7 @@ fn create_client_confirm_active(
         CapabilitySet::Order(Order::new(
             OrderFlags::NEGOTIATE_ORDER_SUPPORT | OrderFlags::ZERO_BOUNDS_DELTAS_SUPPORT,
             OrderSupportExFlags::empty(),
-            0,
+            480 * 480,
             0,
         )),
         CapabilitySet::BitmapCache(BitmapCache {
@@ -370,6 +371,7 @@ fn create_client_confirm_active(
             // https://github.com/Devolutions/IronRDP/issues/447
             max_unacknowledged_frame_count: 20,
         }),
+        CapabilitySet::Rail(SERVER_RAIL_CAPABILITY_SET.to_vec()),
     ]);
 
     if !server_capability_sets

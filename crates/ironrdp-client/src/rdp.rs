@@ -7,7 +7,7 @@ use ironrdp::graphics::image_processing::PixelFormat;
 use ironrdp::pdu::input::fast_path::FastPathInputEvent;
 use ironrdp::session::image::DecodedImage;
 use ironrdp::session::{fast_path, ActiveStage, ActiveStageOutput, GracefulDisconnectReason, SessionResult};
-use ironrdp::{cliprdr, connector, rdpdr, rdpsnd, session};
+use ironrdp::{cliprdr, connector, rdpdr, rdprail, rdpsnd, session};
 use ironrdp_core::WriteBuf;
 use ironrdp_rdpsnd_native::cpal;
 use ironrdp_tokio::{single_sequence_step_read, split_tokio_framed, FramedWrite};
@@ -117,6 +117,7 @@ async fn connect(
 
     let mut connector = connector::ClientConnector::new(config.connector.clone())
         .with_server_addr(server_addr)
+        .with_static_channel(rdprail::Rdprail::new())
         .with_static_channel(
             ironrdp::dvc::DrdynvcClient::new().with_dynamic_channel(DisplayControlClient::new(|_| Ok(Vec::new()))),
         )
@@ -191,7 +192,7 @@ async fn active_session(
 
                 match input_event {
                     RdpInputEvent::Resize { width, height, scale_factor, physical_size } => {
-                        trace!(width, height, "Resize event");
+                        info!(width, height, "resize event");
                         let (width, height) = MonitorLayoutEntry::adjust_display_size(width.into(), height.into());
                         debug!(width, height, "Adjusted display size");
                         if let Some(response_frame) = active_stage.encode_resize(width, height, Some(scale_factor), physical_size) {

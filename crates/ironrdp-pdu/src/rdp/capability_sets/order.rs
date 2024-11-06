@@ -102,7 +102,7 @@ impl Encode for Order {
         dst.write_u32(0); // padding
         dst.write_u16(1); // desktopSaveXGranularity
         dst.write_u16(DESKTOP_SAVE_Y_GRAN_VAL);
-        dst.write_u16(0); // padding
+        dst.write_u16(20); // padding
         dst.write_u16(ORD_LEVEL_1_ORDERS); // maximumOrderLevel
         dst.write_u16(0); // numberFonts
         dst.write_u16(self.order_flags.bits());

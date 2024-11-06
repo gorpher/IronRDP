@@ -411,6 +411,14 @@ pub fn make_channel_options(channel: &StaticVirtualChannel) -> ChannelOptions {
 pub fn make_channel_definition(channel: &StaticVirtualChannel) -> ChannelDef {
     let name = channel.channel_name();
     let options = make_channel_options(channel);
+    pub const rainame: ChannelName = ChannelName::from_static(b"RAIL\0\0\0\0");
+
+    if name == rainame {
+        println!("Custom RAIL Options");
+        let options = ChannelOptions::INITIALIZED | ChannelOptions::ENCRYPT_RDP | ChannelOptions::SHOW_PROTOCOL;
+
+        return ChannelDef { name, options };
+    }
     ChannelDef { name, options }
 }
 
@@ -541,12 +549,12 @@ impl StaticChannelSet {
     }
 
     #[inline]
-    pub fn iter(&self) -> impl Iterator<Item = (TypeId, &StaticVirtualChannel)> {
+    pub fn iter(&self) -> impl Iterator<Item=(TypeId, &StaticVirtualChannel)> {
         self.channels.iter().map(|(type_id, svc)| (*type_id, svc))
     }
 
     #[inline]
-    pub fn iter_mut(&mut self) -> impl Iterator<Item = (TypeId, &mut StaticVirtualChannel, Option<StaticChannelId>)> {
+    pub fn iter_mut(&mut self) -> impl Iterator<Item=(TypeId, &mut StaticVirtualChannel, Option<StaticChannelId>)> {
         let to_channel_id = self.to_channel_id.clone();
         self.channels
             .iter_mut()
@@ -554,17 +562,17 @@ impl StaticChannelSet {
     }
 
     #[inline]
-    pub fn values(&self) -> impl Iterator<Item = &StaticVirtualChannel> {
+    pub fn values(&self) -> impl Iterator<Item=&StaticVirtualChannel> {
         self.channels.values()
     }
 
     #[inline]
-    pub fn type_ids(&self) -> impl Iterator<Item = TypeId> + '_ {
+    pub fn type_ids(&self) -> impl Iterator<Item=TypeId> + '_ {
         self.channels.keys().copied()
     }
 
     #[inline]
-    pub fn channel_ids(&self) -> impl Iterator<Item = StaticChannelId> + '_ {
+    pub fn channel_ids(&self) -> impl Iterator<Item=StaticChannelId> + '_ {
         self.to_channel_id.values().copied()
     }
 

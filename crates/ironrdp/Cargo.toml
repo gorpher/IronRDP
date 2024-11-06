@@ -30,6 +30,7 @@ svc = ["dep:ironrdp-svc"]
 dvc = ["dep:ironrdp-dvc"]
 rdpdr = ["dep:ironrdp-rdpdr"]
 rdpsnd = ["dep:ironrdp-rdpsnd"]
+rdprail = ["dep:ironrdp-rdprail"]
 displaycontrol = ["dep:ironrdp-displaycontrol"]
 
 [dependencies]
@@ -46,6 +47,7 @@ ironrdp-svc = { workspace = true, optional = true }
 ironrdp-dvc = { workspace = true, optional = true }
 ironrdp-rdpdr = { workspace = true, optional = true }
 ironrdp-rdpsnd = { workspace = true, optional = true }
+ironrdp-rdprail = { workspace = true, optional = true }
 ironrdp-displaycontrol = { workspace = true, optional = true }
 
 [dev-dependencies]

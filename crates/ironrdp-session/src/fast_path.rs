@@ -63,10 +63,10 @@ impl Processor {
         let mut input = ReadCursor::new(input);
 
         let header = decode_cursor::<FastPathHeader>(&mut input).map_err(SessionError::decode)?;
-        debug!(fast_path_header = ?header, "Received Fast-Path packet");
+        // debug!(fast_path_header = ?header, "Received Fast-Path packet");
 
         let update_pdu = decode_cursor::<FastPathUpdatePdu<'_>>(&mut input).map_err(SessionError::decode)?;
-        trace!(fast_path_update_fragmentation = ?update_pdu.fragmentation);
+        // trace!(fast_path_update_fragmentation = ?update_pdu.fragmentation);
 
         let processed_complete_data = self
             .complete_data
@@ -125,7 +125,7 @@ impl Processor {
                             // Compressed bitmaps not in 32 bpp format are compressed using Interleaved
                             // RLE and encapsulated in an RLE Compressed Bitmap Stream structure (section
                             // 2.2.9.1.1.3.1.2.4).
-                            debug!(bpp = update.bits_per_pixel, "Non-32 bpp compressed RLE_BITMAP_STREAM",);
+                            // debug!(bpp = update.bits_per_pixel, "Non-32 bpp compressed RLE_BITMAP_STREAM",);
 
                             match ironrdp_graphics::rle::decompress(
                                 update.bitmap_data,

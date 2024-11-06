@@ -1,0 +1,28 @@
+[package]
+name = "ironrdp-rdprail"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+homepage.workspace = true
+repository.workspace = true
+authors.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+
+[lib]
+doctest = false
+test = false
+
+[features]
+default = []
+std = []
+
+[dependencies]
+ironrdp-svc.workspace = true
+ironrdp-pdu = { workspace = true, features = ["alloc"] }
+tracing.workspace = true
+num-derive.workspace = true # TODO: remove
+num-traits.workspace = true # TODO: remove

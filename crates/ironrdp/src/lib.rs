@@ -25,6 +25,8 @@ pub use ironrdp_pdu as pdu;
 pub use ironrdp_rdpdr as rdpdr;
 #[cfg(feature = "rdpsnd")]
 pub use ironrdp_rdpsnd as rdpsnd;
+#[cfg(feature = "rdprail")]
+pub use ironrdp_rdprail as rdprail;
 #[cfg(feature = "server")]
 pub use ironrdp_server as server;
 #[cfg(feature = "session")]
